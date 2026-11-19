@@ -1,23 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
-<link rel="stylesheet" href="./style.css">
+<title>Sunhaven Heat Cover Studio</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+<header class="brand">
+  <div class="brand-mark">SH</div>
+  <div>
+    <h1>SUNHAVEN HEAT <span>Cover Studio</span></h1>
+    <p>Turn your photos into a multi-panel open-world cover poster.</p>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="stage-holder">
+    <canvas id="stage" width="1080" height="1080"></canvas>
+    <p class="hint">Tip: click a panel, then drag the photo inside it. Use the zoom slider to crop tighter.</p>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+
+  <aside class="panel">
+    <h2>1 · Photos</h2>
+    <div class="row">
+      <button type="button" id="allPhotoBtn" class="primary">One photo, all panels</button>
+      <button type="button" id="panelPhotoBtn">Photo for selected panel</button>
+    </div>
+    <input type="file" id="allPhotoInput" accept="image/*" hidden>
+    <input type="file" id="panelPhotoInput" accept="image/*" hidden>
+    <div class="row" id="panelButtons"></div>
+    <label class="field">Panel zoom
+      <input type="range" id="zoomRange" min="1" max="2.6" step="0.02" value="1">
+    </label>
+
+    <h2>2 · Layout</h2>
+    <div class="row">
+      <button type="button" class="chip on" data-layout="quad">Quad Collage</button>
+      <button type="button" class="chip" data-layout="trio">Triple Strip</button>
+      <button type="button" class="chip" data-layout="hero">Hero Plus Two</button>
+      <button type="button" class="chip" data-layout="duo">Split Duo</button>
+    </div>
+
+    <h2>3 · Colour grade</h2>
+    <div class="row">
+      <button type="button" class="chip on" data-grade="sunset">Vice Sunset</button>
+      <button type="button" class="chip" data-grade="neon">Neon Nights</button>
+      <button type="button" class="chip" data-grade="gold">Golden Hour</button>
+      <button type="button" class="chip" data-grade="noir">Midnight Noir</button>
+    </div>
+
+    <h2>4 · Lettering</h2>
+    <label class="field">Masthead title
+      <input type="text" id="titleInput" value="SUNHAVEN HEAT" maxlength="30">
+    </label>
+    <label class="field">Caption
+      <input type="text" id="captionInput" value="Sunset Heist" maxlength="40">
+    </label>
+    <label class="field">Credit line
+      <input type="text" id="creditInput" value="COVER STUDIO" maxlength="30">
+    </label>
+
+    <h2>5 · Export</h2>
+    <label class="field">Post size
+      <select id="sizeSelect">
+        <option value="square" selected>Square 1080 x 1080</option>
+        <option value="portrait">Portrait 1080 x 1350</option>
+        <option value="wide">Wide 1920 x 1080</option>
+      </select>
+    </label>
+    <button type="button" id="exportBtn" class="primary big">Export PNG</button>
+    <p id="statusLine" class="status">Loading the demo cover…</p>
+  </aside>
 </main>
-<script type="module" src="./src/main.js"></script>
+
+<script type="module" src="src/main.js"></script>
 </body>
 </html>
