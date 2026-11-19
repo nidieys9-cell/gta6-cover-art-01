@@ -1,88 +1,85 @@
-/* Sunhaven Heat Cover Studio - editor styling, system fonts only. */
+:root {
+  --ink: #17102a;
+  --panel: #221541;
+  --accent: #ffb52e;
+  --accent2: #ff5f9e;
+  --text: #f6f1ff;
+  --muted: #c9bce8;
+}
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-  background: radial-gradient(1200px 700px at 20% -10%, #3d1160 0%, #150329 55%, #0a0118 100%);
-  color: #fdf6ec;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: radial-gradient(1200px 700px at 85% -10%, #4b1d6e 0%, var(--ink) 55%) fixed, var(--ink);
+  color: var(--text);
   min-height: 100vh;
 }
-.brand {
-  display: flex; align-items: center; gap: 16px;
-  padding: 18px 26px 6px;
+.app {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 22px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px;
+  align-items: start;
 }
-.brand-mark {
-  font-family: 'Arial Black', Arial, sans-serif;
-  font-size: 26px; line-height: 1;
-  color: #0b0018; background: linear-gradient(160deg, #ffd94d, #ff5e78);
-  padding: 12px 10px; border-radius: 10px;
-  box-shadow: 0 4px 18px rgba(255, 94, 120, 0.45);
+.controls {
+  background: rgba(34, 21, 65, 0.92);
+  border: 1px solid rgba(255, 181, 46, 0.35);
+  border-radius: 14px;
+  padding: 20px;
 }
-.brand h1 {
-  margin: 0; font-family: 'Arial Black', Arial, sans-serif;
-  font-size: 27px; letter-spacing: 1px;
+.controls h1 {
+  font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 27px;
+  line-height: 1.05;
+  margin: 0 0 8px;
+  color: var(--accent);
+  letter-spacing: 0.5px;
 }
-.brand h1 span { color: #ffb03a; }
-.brand p { margin: 3px 0 0; color: #cdbcf5; font-size: 14px; }
-
-.layout {
-  display: grid; grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 22px; padding: 14px 26px 30px; align-items: start;
-}
-.stage-holder { min-width: 0; }
-#stage {
-  display: block; width: 100%; height: auto;
-  border-radius: 6px; background: #0b0018;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
-  cursor: grab; touch-action: none;
-}
-#stage:active { cursor: grabbing; }
-.hint { color: #a98fd8; font-size: 13px; margin: 10px 2px 0; }
-
-.panel {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px; padding: 16px 18px 20px;
-  backdrop-filter: blur(4px);
-}
-.panel h2 {
-  font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: #ffb03a; margin: 16px 0 9px;
-}
-.panel h2:first-child { margin-top: 2px; }
-.row { display: flex; flex-wrap: wrap; gap: 8px; }
-button {
-  font: inherit; font-size: 13.5px; cursor: pointer;
-  color: #fdf6ec; background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 9px; padding: 8px 12px;
-}
-button:hover { background: rgba(255, 255, 255, 0.2); }
-button.primary {
-  background: linear-gradient(160deg, #ff5e78, #ff8c2e);
-  border: none; color: #ffffff; font-weight: 700;
-}
-button.primary.big { width: 100%; padding: 13px; font-size: 16px; margin-top: 6px; }
-button.chip.on {
-  background: #37e0ff; color: #06222b; border-color: transparent; font-weight: 700;
-}
-.field { display: block; font-size: 13px; color: #cdbcf5; margin: 9px 0; }
+.controls h1 span { color: #fff; display: block; font-size: 19px; }
+.tagline { color: var(--muted); margin: 0 0 16px; font-size: 14px; line-height: 1.45; }
+.field { display: block; font-size: 13px; font-weight: 700; margin: 13px 0; color: var(--text); }
 .field input[type="text"], .field select {
-  display: block; width: 100%; margin-top: 5px;
-  font: inherit; font-size: 15px; color: #fdf6ec;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 8px; padding: 8px 10px;
+  width: 100%; margin-top: 6px; padding: 9px 10px; border-radius: 8px;
+  border: 1px solid #57448f; background: #150b2e; color: var(--text); font-size: 15px;
 }
-.field input[type="range"] { display: block; width: 100%; margin-top: 6px; accent-color: #ff5e78; }
-.status { font-size: 13px; color: #9fe8ff; min-height: 18px; margin: 12px 0 0; }
+.field input[type="file"] { width: 100%; margin-top: 6px; color: var(--muted); }
+.field input[type="range"] { width: 100%; margin-top: 6px; accent-color: var(--accent); }
+.thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.thumb {
+  border: 1px solid #57448f; background: #150b2e; color: var(--muted);
+  border-radius: 999px; padding: 6px 12px; font-size: 12.5px; cursor: pointer;
+}
+.thumb.active { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.hint { color: var(--muted); font-size: 12.5px; line-height: 1.5; margin: 6px 0 0; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+button {
+  background: linear-gradient(180deg, #ffb52e, #ff8a3d); color: #241203; border: 0;
+  border-radius: 9px; padding: 10px 14px; font-weight: 800; font-size: 13.5px; cursor: pointer;
+}
+button:hover { filter: brightness(1.08); }
+#fillAll, #resetView { background: #31205f; color: var(--text); border: 1px solid #57448f; }
+#status { min-height: 20px; color: var(--accent); font-size: 13px; margin: 10px 0 0; }
+.stage { display: flex; justify-content: center; }
+#cover {
+  width: min(100%, calc(100vh - 44px));
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  cursor: grab;
+  touch-action: none;
+  background: #0d0716;
+}
+#cover:active { cursor: grabbing; }
 
-/* Screenshot mode: the cover alone fills the viewport. */
-body.shot-cover .brand, body.shot-cover .panel, body.shot-cover .hint { display: none; }
-body.shot-cover .layout { display: block; padding: 0; }
-body.shot-cover .stage-holder { width: 100vw; height: 100vh; }
-body.shot-cover #stage { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
+/* Screenshot scene: the cover alone fills the window, no editor chrome. */
+body.shot-cover .controls { display: none; }
+body.shot-cover .app { display: block; max-width: none; padding: 0; }
+body.shot-cover .stage { display: block; }
+body.shot-cover #cover { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; cursor: default; }
 
-@media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  #cover { width: 100%; }
 }

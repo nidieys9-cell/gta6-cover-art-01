@@ -1,34 +1,28 @@
 // Fixed scenes for screenshots, driven by the query string:
-//   ?shot=cover   shows only the finished cover, filling the viewport
-//   ?shot=editor  shows the full editor with photos loaded
-// Extra params understood here: photo (comma list of sample names, repeated
-// across panels), layout, grade, size, title and caption.
-// `load(src, caption)` is supplied by main.js and loads one photo into every
-// panel; window.__coverStudio (also from main.js) fine-tunes the scene.
-// window.__shotReady flips true once the scene has painted two frames.
-export async function runShot(shot, query, load) {
-  const studio = window.__coverStudio;
-  const names = (query.get('photo') || 'pier').split(',').map((s) => s.trim()).filter(Boolean);
-  const caption = query.get('caption') || 'Sunset Heist';
+//   ?shot=cover   the finished cover alone, filling the window
+//   ?shot=editor  the full editor with sample photos loaded
+// Query knobs: layout (quad|trio|hero), grade (sunset|neon|gold|noir),
+// title, credit, and photo (a comma list of sample names, no extension).
+// `load(samples, title, credit)` is the editor's own loader; window.__shotReady
+// is set once the scene has painted, so a headless browser can wait for it.
+export async function runShot(shot, query, load, state, applyPatch) {
+  const patch = {};
+  if (query.get('layout')) patch.layout = query.get('layout');
+  if (query.get('grade')) patch.grade = query.get('grade');
+  if (typeof applyPatch === 'function') applyPatch(patch);
 
-  if (studio) {
-    if (query.get('layout')) studio.setLayout(query.get('layout'));
-    if (query.get('grade')) studio.setGrade(query.get('grade'));
-    if (query.get('size')) studio.setSize(query.get('size'));
-    if (query.get('title')) studio.setTitle(query.get('title'));
+  if (shot === 'cover') {
+    document.body.classList.add('shot-cover');
+    const canvas = document.getElementById('cover');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
-
-  // Load each named sample into successive panels; a single name fills all.
-  for (let i = 0; i < names.length; i++) {
-    const src = `samples/${names[i]}.jpg`;
-    if (i === 0) {
-      await load(src, caption);
-    } else if (studio) {
-      await studio.loadIntoPanel(i, src);
-    }
-  }
-  if (studio) studio.setCaption(caption);
-
-  if (shot === 'cover') document.body.classList.add('shot-cover');
+  const names = (query.get('photo') ?? 'pier,boulevard').split(',').map((s) => s.trim()).filter(Boolean);
+  const samples = names.map((name) => `samples/${name}.jpg`);
+  await load(
+    samples,
+    query.get('title') ?? 'SUNHAVEN HEAT',
+    query.get('credit') ?? 'A SUNHAVEN ORIGINAL',
+  );
   requestAnimationFrame(() => requestAnimationFrame(() => { window.__shotReady = true; }));
 }
